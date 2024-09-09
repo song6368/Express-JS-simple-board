@@ -1,10 +1,20 @@
-﻿# Express-JS-simple-board
+Express-JS Simple Board
+Overview
+This project is a simple board application built with Express.js, which includes user login functionality and database interactions.
 
-24.09.10 DB스키마 및 테이블 생성, 로그인 기능 삽입
+DB Schema and Table Creation
+Database Schema
 
-- DB
-![image](https://github.com/user-attachments/assets/9f4999b1-ff0d-4a93-9a78-7c6a90f2a36d)
 
-- 로그인
-![image](https://github.com/user-attachments/assets/79f4a2c2-be5e-4cd5-ac76-c3f6b990f365)
-![image](https://github.com/user-attachments/assets/ef76426f-3592-4c0f-95bd-555987791ffb)
+The database schema defines the structure of the tables and relationships used in the application.
+
+Table Creation
+Instructions and scripts to create the necessary tables in the database.
+
+Login Functionality
+User Login
+
+
+The login feature allows users to authenticate themselves with their credentials.
+
+Login Example
