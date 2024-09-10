@@ -1,10 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var SQLite3DB = require('./sqlite3'); // Import the SQLite3DB class
+var SQLite3DB = require('./sqlite3');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  res.render("index");
+  if(req.session.ip){
+    console.log('session exists')
+    res.render("main");
+  } else {
+    console.log('session not exists')
+    res.render("index");
+  }
 });
 
 router.post('/signUp', async function(req, res, next) {
@@ -50,6 +56,10 @@ router.post('/login', async function(req, res, next) {
     const existEmail = await db.select(`SELECT COUNT(*) AS count FROM users WHERE email = ? and password = ?`, [email, password]);
 
     if (existEmail.count == 1) {
+      // 세션 남기기
+      req.session.email = email;
+      req.session.ip = req.ip;
+
       return res.send({ success: true, successMessage: '로그인되었습니다.'});
     } else {
       return res.send({ success: false, errorMessage: '이메일이나 패스워드가 일치하지 않습니다.' })
