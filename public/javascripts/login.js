@@ -25,7 +25,7 @@ $('#signUpBtn').click(() => {
                 alert(response.errorMessage);
             } else {
                 alert(response.successMessage);
-                window.location.reload();
+                window.location.href='loginPage';
             }
         },
         error: function (xhr) {
@@ -50,7 +50,7 @@ $('#loginBtn').click(() => {
                 alert(response.errorMessage);
             } else {
                 alert(response.successMessage);
-                window.location.reload();
+                window.location.href = '/';
             }
         },
         error: function (xhr) {
