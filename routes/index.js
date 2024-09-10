@@ -9,12 +9,28 @@ router.get('/', async function (req, res, next) {
   res.render("main");
 });
 
+router.get('/main', async function (req, res, next) {
+  res.render("main");
+});
+
 router.get('/loginPage', async function (req, res, next) {
   res.render("login");
 });
 
 router.get('/profile', async function (req, res, next) {
-  res.render("profile");
+  if (req.session.ip && req.session.ip === req.ip) {
+    res.render("profile");
+  } else {
+    res.render("main")
+  }
+});
+
+router.get('/writeBoardPage', async function (req, res, next) {
+  if (req.session.ip && req.session.ip === req.ip) {
+    res.render("writeBoard");
+  } else {
+    res.render("main")
+  }
 });
 
 router.get('/logout', async function (req, res, next) {
@@ -24,6 +40,47 @@ router.get('/logout', async function (req, res, next) {
     }
     res.render("main");
   });
+});
+
+router.post('/writeBoard', async function(req, res, next) {
+  if (req.session.ip && req.session.ip === req.ip) {
+    const db = new SQLite3DB();
+
+    try {
+      await db.connectDB();
+
+      // 세션에서 이메일을 가져옵니다
+      const email = req.session.email;
+
+      // 이메일이 없는 경우 에러 응답
+      if (!email) {
+        return res.status(400).json({ error: '로그인 하셔야 합니다.' });
+      }
+
+      // 요청 본문에서 제목과 내용을 가져옵니다
+      const title = req.body.title;
+      const content = req.body.content;
+
+      // 게시글을 데이터베이스에 삽입
+      await db.insert(
+        `INSERT INTO board (title, content, author) VALUES (?, ?, ?)`,
+        [title, content, email]
+      );
+
+      // 성공 응답
+      res.status(200).json({ success: '게시글이 성공적으로 작성되었습니다.' });
+
+    } catch (err) {
+      // 에러 발생 시 에러 핸들링 미들웨어로 전달
+      next(err);
+    } finally {
+      // 데이터베이스 연결 해제
+      db.closeDB();
+    }
+  } else {
+    // 세션이 유효하지 않거나 IP가 일치하지 않는 경우 메인 페이지로 리다이렉트
+    res.redirect('/main');
+  }
 });
 
 router.post('/hasSession', function (req, res, next) {

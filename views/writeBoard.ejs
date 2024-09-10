@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="/stylesheets/writeBoard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>게시글 작성</h1>
+      </header>
+
+      <main>
+        <form
+          id="write-board-form"
+          action="/writeBoard"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required />
+          </div>
+
+          <div class="form-group">
+            <label for="content">내용:</label>
+            <div
+              id="content"
+              contenteditable="true"
+              style="padding: 10px; height: 500px; overflow: auto"
+            ></div>
+            <!-- div 태그 내부 내용 input태그에 실어서 전송 -->
+            <input type="hidden" id="content-hidden" name="content" />
+          </div>
+
+          <button type="submit" class="btn">작성</button>
+          <button
+            class="btn"
+            style="background-color: rgb(167, 167, 167); margin-top: 10px"
+            id="back"
+          >
+            돌아가기
+          </button>
+        </form>
+      </main>
+
+      <footer>
+        <p>&copy; 2024 커뮤니티 사이트</p>
+      </footer>
+    </div>
+
+    <script src="/javascripts/jquery-3.7.1.min.js"></script>
+    <script src="/javascripts/writeBoard.js"></script>
+    <script>
+      // 폼 제출 전 contenteditable 내용을 hidden input으로 복사
+      document
+        .getElementById("write-board-form")
+        .addEventListener("submit", function () {
+          const contentEditable = document.getElementById("content");
+          const hiddenInput = document.getElementById("content-hidden");
+          hiddenInput.value = contentEditable.innerHTML; // HTML 컨텐츠를 hidden input에 저장
+        });
+    </script>
+  </body>
+</html>

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (isLoggedIn) {
         navMenu.innerHTML = `
+                <a href="/writeBoardPage">게시글 작성</a>
                 <a href="/profile">내 프로필</a>
                 <a href="/logout">로그아웃</a>
             `;
