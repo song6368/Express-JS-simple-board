@@ -19,8 +19,8 @@
   <br/>
 <img src="https://github.com/user-attachments/assets/0b0e84c1-03cd-42b9-b36b-48e98e89de9f" width="400" />
 <img src="https://github.com/user-attachments/assets/48abc53d-90c2-4757-bb24-e36ed64d8bf6" width="400" />
-
-
+<br/>
+<br/>
 - 게시글 작성 페이지 1차 완성 ( div태그 내부 contenteditable 속성 사용 )
   <br/>
 ![image](https://github.com/user-attachments/assets/8e78c0fd-c729-41c0-b3fb-8ea0b45e9b41)
