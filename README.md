@@ -1,5 +1,3 @@
-물론이죠! 텍스트 형식으로 아래와 같이 정리했습니다:
-
 ---
 
 # Express-JS Simple Board
