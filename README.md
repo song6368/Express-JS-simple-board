@@ -17,5 +17,5 @@
 
 - 프로필 페이지
   <br/>
-![image](https://github.com/user-attachments/assets/0b0e84c1-03cd-42b9-b36b-48e98e89de9f)
-![image](https://github.com/user-attachments/assets/48abc53d-90c2-4757-bb24-e36ed64d8bf6)
+<img src="https://github.com/user-attachments/assets/0b0e84c1-03cd-42b9-b36b-48e98e89de9f" width="400" />
+<img src="https://github.com/user-attachments/assets/48abc53d-90c2-4757-bb24-e36ed64d8bf6" width="400" />
