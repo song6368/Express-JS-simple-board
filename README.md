@@ -47,6 +47,10 @@
   ![Post Creation Form](https://github.com/user-attachments/assets/55bb054b-6ea1-46e8-b668-53be31f1d748)
   ![Form Submission](https://github.com/user-attachments/assets/39506425-5b48-45ef-b22b-8e3f4dda5a5c)
 
+- 게시글 상세페이지
+  <br/>
+  ![image](https://github.com/user-attachments/assets/b67d8a10-3484-49be-a73c-9696a5a9f589)
+
 ## 설치 및 실행
 
 1. **레포지토리 클론:**
