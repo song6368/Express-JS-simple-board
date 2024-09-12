@@ -116,7 +116,7 @@ function () {
             reject(err);
           } else {
             resolve({
-              id: this.lastID
+              lastID: this.lastID
             });
           }
         });

@@ -71,7 +71,7 @@ class SQLite3DB {
                     console.error('Error executing insert:', err.message);
                     reject(err);
                 } else {
-                    resolve({ id: this.lastID });
+                    resolve({ lastID: this.lastID });
                 }
             });
         });

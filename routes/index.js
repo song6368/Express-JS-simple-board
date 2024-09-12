@@ -42,6 +42,37 @@ router.get('/logout', async function (req, res, next) {
   });
 });
 
+router.get('/boardDetail', async function(req, res, next){
+  if (req.session.ip && req.session.ip === req.ip) {
+    const boardId = req.query.id;
+    const db = new SQLite3DB();
+    req.session.boardId = boardId;
+
+    try{
+      await db.connectDB();
+
+      const result = await db.select('select * from board where id = ?',[boardId]);
+
+      console.log(result);
+      
+      res.render("boardDetail", {
+        id: result.id,
+        title: result.title,
+        created_at: result.created_at,
+        author: result.author,
+        content: result.content
+      });
+
+    } catch(err){
+      console.log(err);
+    } finally {
+      db.closeDB();
+    }
+  } else {
+    res.render('login');
+  }
+})
+
 router.post('/boardDetail', async function(req, res, next){
   if (req.session.ip && req.session.ip === req.ip) {
     const boardId = req.body.id;
@@ -93,13 +124,14 @@ router.post('/writeBoard', async function(req, res, next) {
       const content = req.body.content;
 
       // 게시글을 데이터베이스에 삽입
-      await db.insert(
+      const result = await db.insert(
         `INSERT INTO board (title, content, author) VALUES (?, ?, ?)`,
         [title, content, email]
       );
 
-      // 성공 응답
-      res.redirect('boardDetail');
+      const boardId = result.lastID;
+
+      res.redirect(`/boardDetail?id=${boardId}`);
 
     } catch (err) {
       // 에러 발생 시 에러 핸들링 미들웨어로 전달
