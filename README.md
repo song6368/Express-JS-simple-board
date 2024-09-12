@@ -52,7 +52,7 @@
 1. **레포지토리 클론:**
 
    ```bash
-   git clone https://github.com/your-username/express-js-simple-board.git
+   git clone https://github.com/song6368/Express-JS-simple-board
    ```
 
 2. **의존성 설치:**
