@@ -207,9 +207,7 @@ router.post('/writeBoard', function _callee8(req, res, next) {
 
         case 12:
           // 성공 응답
-          res.status(200).json({
-            success: '게시글이 성공적으로 작성되었습니다.'
-          });
+          res.redirect('boardDetail');
           _context8.next = 18;
           break;
 

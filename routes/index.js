@@ -99,7 +99,7 @@ router.post('/writeBoard', async function(req, res, next) {
       );
 
       // 성공 응답
-      res.status(200).json({ success: '게시글이 성공적으로 작성되었습니다.' });
+      res.redirect('boardDetail');
 
     } catch (err) {
       // 에러 발생 시 에러 핸들링 미들웨어로 전달
