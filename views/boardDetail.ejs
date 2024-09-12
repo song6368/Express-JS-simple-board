@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - 게시글 상세보기</title>
+    <link rel="stylesheet" href="/stylesheets/detail.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><%= title %></h1>
+            <p class="author">작성자: <%= author %></p>
+            <p class="date">작성일: <%= created_at %></p>
+        </header>
+
+        <main>
+            <div class="content">
+                <%- content %>
+            </div>
+        </main>
+
+        <footer>
+            <a href="/">목록으로 돌아가기</a>
+        </footer>
+    </div>
+    <script src="/javascripts/boardDetail.js" type="module"></script>
+</body>
+</html>

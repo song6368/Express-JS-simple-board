@@ -34,6 +34,25 @@ class SQLite3DB {
     select(query, params) {
         return new Promise((resolve, reject) => {
             this.db.get(query, params, (err, row) => {
+
+                console.log(row);
+                
+                if (err) {
+                    console.error('Error executing query:', err.message);
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+    }
+
+    selectList(query, params) {
+        return new Promise((resolve, reject) => {
+            this.db.all(query, params, (err, row) => {
+
+                console.log(row);
+                
                 if (err) {
                     console.error('Error executing query:', err.message);
                     reject(err);

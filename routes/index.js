@@ -42,6 +42,37 @@ router.get('/logout', async function (req, res, next) {
   });
 });
 
+router.post('/boardDetail', async function(req, res, next){
+  if (req.session.ip && req.session.ip === req.ip) {
+    const boardId = req.body.id;
+    const db = new SQLite3DB();
+    req.session.boardId = boardId;
+
+    try{
+      await db.connectDB();
+
+      const result = await db.select('select * from board where id = ?',[boardId]);
+
+      console.log(result);
+      
+      res.render("boardDetail", {
+        id: result.id,
+        title: result.title, 
+        created_at: result.created_at, 
+        author: result.author, 
+        content: result.content
+      });
+
+    } catch(err){
+      console.log(err);
+    } finally {
+      db.closeDB();
+    }
+  } else {
+    res.render('login');
+  }
+})
+
 router.post('/writeBoard', async function(req, res, next) {
   if (req.session.ip && req.session.ip === req.ip) {
     const db = new SQLite3DB();
@@ -82,6 +113,30 @@ router.post('/writeBoard', async function(req, res, next) {
     res.redirect('/main');
   }
 });
+
+router.post('/loadBoard', async function(req, res, next){
+  const db = new SQLite3DB();
+
+  const offset = req.body.offset;
+
+  const cnt= req.body.cnt;
+
+  try {
+    await db.connectDB();
+
+    const result = await db.selectList('SELECT id, title, author, created_at FROM board LIMIT $1 OFFSET $2', [Number(cnt), Number(offset)]);
+
+    res.send(result);
+
+  } catch (err) {
+    // 에러 발생 시 에러 핸들링 미들웨어로 전달
+    console.log(err);
+    next(err);
+  } finally {
+    // 데이터베이스 연결 해제
+    db.closeDB();
+  }
+})
 
 router.post('/hasSession', function (req, res, next) {
   if (req.session.ip && req.session.ip === req.ip) {

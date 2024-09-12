@@ -1,0 +1,73 @@
+/* detail.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+}
+
+header p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.content {
+    line-height: 1.6;
+    color: #333;
+    word-break: break-word; /* 긴 단어가 잘리지 않도록 */
+}
+
+footer {
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    line-height: 1.6;
+    color: #333;
+    max-width: 100%;
+    overflow-wrap: break-word; /* 긴 단어가 잘리지 않도록 */
+    word-break: break-word; /* 긴 단어가 잘리지 않도록 */
+}
+
+.content img {
+    max-width: 100%; /* 부모 컨테이너를 넘지 않도록 */
+    height: auto; /* 이미지 비율을 유지하도록 */
+    display: block; /* 이미지를 블록 요소로 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
