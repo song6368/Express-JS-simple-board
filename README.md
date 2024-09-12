@@ -62,7 +62,7 @@
 2. **의존성 설치:**
 
    ```bash
-   cd express-js-simple-board
+   cd Express-JS-simple-board
    npm install
    ```
 
