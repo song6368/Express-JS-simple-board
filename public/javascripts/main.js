@@ -6,7 +6,7 @@ $('.btn').click(e=>{
     console.log()
 })
 
-window.onload = async () => {
+document.addEventListener('DOMContentLoaded', async function() {
     const navMenu = document.getElementById('nav-menu');
 
     const isLoggedIn = await hasSession();
@@ -52,5 +52,4 @@ window.onload = async () => {
             });
         }
     });
-
-};
+});

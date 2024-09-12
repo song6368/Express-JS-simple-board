@@ -8,8 +8,7 @@ $('.btn').click(function (e) {
   e.preventDefault();
   console.log();
 });
-
-window.onload = function _callee() {
+document.addEventListener('DOMContentLoaded', function _callee() {
   var navMenu, isLoggedIn;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -52,4 +51,4 @@ window.onload = function _callee() {
       }
     }
   });
-};
+});
