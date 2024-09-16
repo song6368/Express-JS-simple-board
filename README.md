@@ -50,6 +50,11 @@
 - 게시글 상세페이지
   <br/>
   ![image](https://github.com/user-attachments/assets/b67d8a10-3484-49be-a73c-9696a5a9f589)
+  
+- 페이지네이션 추가 및 UI 변경
+  <br/>
+  ![image](https://github.com/user-attachments/assets/b3893c97-580f-46af-baa9-0d7c05e33c62)
+  ![image](https://github.com/user-attachments/assets/ec4a0e3d-3c36-470a-bf89-70a097c4c5e8)
 
 ## 설치 및 실행
 
