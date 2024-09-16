@@ -1,3 +1,5 @@
+import { loadBoard, pagination } from "./loadBoard.js";
+
 $(document).ready(function () {
 
     const userProfile = () => {
@@ -37,7 +39,7 @@ $(document).ready(function () {
 
 
     $('#cancel-edit').click(function () {
-        $('.profile-info').css('display', 'block');
+        $('.profile-info').css('display', 'flex');
         $('#profile-name').val('');
         $('#edit-profile-form').hide();
     });
@@ -54,7 +56,7 @@ $(document).ready(function () {
             processData: false,
             success: function (response) {
                 alert(response.message);
-                $('.profile-info').css('display', 'block');
+                $('.profile-info').css('display', 'flex');
                 $('#profile-name').val('');
                 $('#edit-profile-form').hide();
                 userProfile();
@@ -64,4 +66,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    pagination('pagination', 'myBoard', 5, false);
+
+    loadBoard(5, 0, 'myBoard', false);
 });

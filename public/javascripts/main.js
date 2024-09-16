@@ -1,12 +1,16 @@
 import hasSession from '/javascripts/hasSession.js';
+import { loadBoard, pagination } from './loadBoard.js';
 
 $('.btn').click(e=>{
     e.preventDefault();
 
     console.log()
-})
+});
 
-document.addEventListener('DOMContentLoaded', async function() {
+const postsPerPage = 10;
+
+document.addEventListener('DOMContentLoaded', async function() { 
+
     const navMenu = document.getElementById('nav-menu');
 
     const isLoggedIn = await hasSession();
@@ -17,39 +21,45 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <a href="/profile">내 프로필</a>
                 <a href="/logout">로그아웃</a>
             `;
+        
+        userProfile();
     } else {
         navMenu.innerHTML = `
                 <a href="/loginPage">로그인</a>
             `;
     }
+    pagination('pagination', 'board-content', postsPerPage, true);
+    loadBoard(postsPerPage, 0, 'board-content', true);
 
+});
+
+
+
+const userProfile = () => {
     $.ajax({
-        url: '/loadBoard',
         type: 'POST',
-        data: {
-            'cnt': 5,
-            'offset': 0
-        },
-        success: (res) => {
-            res.forEach(e => {
-                const id = e.id;
-                const title = e.title;
-                const author = e.author;
-                const created_at = e.created_at;
+        url: '/userProfile', // 실제 사용자 정보를 제공하는 API 엔드포인트
+        success: function (response) {
 
-                $('#board-content').append(
-                    `
-                    <form action="/boardDetail" method="post">
-                        <div class="post">
-                            <h2>${title}</h2>
-                            <p>작성자: ${author} | 작성일: ${created_at}</p>
-                            <input style="display:none" name="id" value=${id}>
-                            <button type="submit" class="btn">자세히 보기</button>
-                        </div>
-                    </form>
-                    `
-                );
-            });
+            $('#pro').css('display', 'flex');
+
+            // 서버에서 받은 사용자 정보를 HTML 요소에 삽입
+            $('#nick').text(response.name);
+            if (response.image) {
+                const arrayBuffer = new Uint8Array(response.image.data).buffer;
+                const blob = new Blob([arrayBuffer]); // 실제 이미지 MIME 타입으로 조정
+
+                // Blob URL 생성 및 이미지 표시
+                const imageUrl = URL.createObjectURL(blob);
+
+                $('#photo').attr('src', imageUrl);
+            } else {
+                $('#photo').attr('src', '/images/default-profile.png'); // 기본 이미지
+            }
+        },
+        error: function (xhr) {
+            alert('사용자 정보를 로드하는 데 실패했습니다: ' + xhr.status + ' - ' + xhr.statusText);
+            window.location.href = '/';
         }
     });
-});
+}
