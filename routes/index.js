@@ -191,9 +191,9 @@ router.post('/loadBoard', async function (req, res, next) {
     let result;
 
     if(req.session.email && !notForEmail){
-      result = await db.selectList('SELECT id, title, author, created_at FROM board WHERE author = ? ORDER BY created_at desc LIMIT $1 OFFSET $2', [req.session.email, Number(cnt), Number(offset)]);
+      result = await db.selectList('SELECT id, title, author, created_at FROM board WHERE author = ? ORDER BY id desc LIMIT $1 OFFSET $2', [req.session.email, Number(cnt), Number(offset)]);
     } else {
-      result = await db.selectList('SELECT id, title, author, created_at FROM board ORDER BY created_at desc LIMIT $1 OFFSET $2', [Number(cnt), Number(offset)]);
+      result = await db.selectList('SELECT id, title, author, created_at FROM board ORDER BY id desc LIMIT $1 OFFSET $2', [Number(cnt), Number(offset)]);
     }
     
     res.send(result);

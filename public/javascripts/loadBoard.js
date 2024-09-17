@@ -35,34 +35,63 @@ const loadBoard = (cnt, offset, tagId, notForEmail) => {
 }
 
 const pagination = (tagId, tagId2, postsPerPage, notForEmail) => {
-    
     $.ajax({
         url: '/boardCount',
         type: 'POST',
         data: {
-            notForEmail : notForEmail
+            notForEmail: notForEmail
         },
         success: (res) => {
-            const totalPosts = res.count; // Assuming your response has a total field
-
+            const totalPosts = res.count; 
             const totalPages = Math.ceil(totalPosts / postsPerPage);
+            const pagesPerGroup = 5; // 한 그룹에 보여줄 페이지 수
+            let currentGroup = 1;
 
-            // Generate pagination links
-            let paginationHtml = '';
-            for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += `<li><a href="#" data-page="${i}">${i}</a></li>`;
-            }
+            const renderPagination = (group) => {
+                const startPage = (group - 1) * pagesPerGroup + 1;
+                const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages);
 
-            $('#'+tagId).html(paginationHtml);
+                let paginationHtml = '';
 
-            // Handle page click
-            $('#'+tagId).on('click', 'a', function (event) {
+                // '이전' 버튼
+                if (group > 1) {
+                    paginationHtml += `<li><a href="#" class="prev"><</a></li>`;
+                }
+
+                // 페이지 번호
+                for (let i = startPage; i <= endPage; i++) {
+                    paginationHtml += `<li><a href="#" data-page="${i}">${i}</a></li>`;
+                }
+
+                // '다음' 버튼
+                if (endPage < totalPages) {
+                    paginationHtml += `<li><a href="#" class="next">></a></li>`;
+                }
+
+                $('#' + tagId).html(paginationHtml);
+            };
+
+            // 첫 그룹 렌더링
+            renderPagination(currentGroup);
+
+            // 페이지 클릭 처리
+            $('#' + tagId).on('click', 'a', function (event) {
                 event.preventDefault();
-                const page = $(this).data('page');
-                loadBoard(postsPerPage, (page - 1) * postsPerPage, tagId2, notForEmail);
+                const $this = $(this);
+
+                if ($this.hasClass('prev')) {
+                    currentGroup--;
+                    renderPagination(currentGroup);
+                } else if ($this.hasClass('next')) {
+                    currentGroup++;
+                    renderPagination(currentGroup);
+                } else {
+                    const page = $this.data('page');
+                    loadBoard(postsPerPage, (page - 1) * postsPerPage, tagId2, notForEmail);
+                }
             });
         }
-    })
+    });
 };
 
 export { loadBoard, pagination }
