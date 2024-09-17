@@ -1,4 +1,4 @@
-const loadBoard = (cnt, offset, tagId, notForEmail) => {
+const loadBoard = (cnt, offset, tagId, notForEmail, delBtn) => {
     $.ajax({
         url: '/loadBoard',
         type: 'POST',
@@ -8,7 +8,7 @@ const loadBoard = (cnt, offset, tagId, notForEmail) => {
             'notForEmail': notForEmail
         },
         success: (res) => {
-            $('#' + tagId).html('');
+            $('#' + tagId).html('');  // Clear the current content of the element
 
             res.forEach(e => {
                 const id = e.id;
@@ -16,25 +16,43 @@ const loadBoard = (cnt, offset, tagId, notForEmail) => {
                 const author = e.author;
                 const created_at = e.created_at;
 
-                console.log(id);
-
-                $('#'+tagId).append(
-                    `
-                    <form action="/boardDetail" method="post">
-                        <button type="submit" class="post">
-                            <h2>${title}</h2>
-                            <p>${author}<br/>${created_at}</p>
-                            <input style="display:none" name="id" value=${id}>
-                        </button>
-                    </form>
-                    `
-                );
+                if (delBtn) {
+                    $('#' + tagId).append(
+                        `
+                        <div class="post-container">
+                            <form action="/boardDetail" method="post">
+                                <button type="submit" class="post">
+                                    <h2>${title}</h2>
+                                    <p>${author}<br/>${created_at}</p>
+                                    <input type="hidden" name="id" value="${id}">
+                                </button>
+                            </form>
+                            <form action="/deletePost" method="post" class="delete-form">
+                                <input type="hidden" name="id" value="${id}">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        </div>
+                        `
+                    );
+                } else {
+                    $('#' + tagId).append(
+                        `
+                        <form action="/boardDetail" method="post">
+                            <button type="submit" class="post">
+                                <h2>${title}</h2>
+                                <p>${author}<br/>${created_at}</p>
+                                <input type="hidden" name="id" value="${id}">
+                            </button>
+                        </form>
+                        `
+                    );
+                }
             });
         }
     });
 }
 
-const pagination = (tagId, tagId2, postsPerPage, notForEmail) => {
+const pagination = (tagId, tagId2, postsPerPage, notForEmail, delBtn) => {
     $.ajax({
         url: '/boardCount',
         type: 'POST',
@@ -87,7 +105,7 @@ const pagination = (tagId, tagId2, postsPerPage, notForEmail) => {
                     renderPagination(currentGroup);
                 } else {
                     const page = $this.data('page');
-                    loadBoard(postsPerPage, (page - 1) * postsPerPage, tagId2, notForEmail);
+                    loadBoard(postsPerPage, (page - 1) * postsPerPage, tagId2, notForEmail, delBtn);
                 }
             });
         }

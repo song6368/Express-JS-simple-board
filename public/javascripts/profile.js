@@ -67,7 +67,7 @@ $(document).ready(function () {
         });
     });
 
-    pagination('pagination', 'myBoard', 5, false);
+    pagination('pagination', 'myBoard', 5, false, true);
 
-    loadBoard(5, 0, 'myBoard', false);
+    loadBoard(5, 0, 'myBoard', false, true);
 });

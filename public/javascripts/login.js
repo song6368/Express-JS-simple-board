@@ -8,6 +8,18 @@ function showLoginForm() {
     document.getElementById('signUpForm').style.display = 'none';
 }
 
+function triggerButtonOnEnter(container, button) {
+    $(container + " input").on("keyup", function(key) {
+        if (key.keyCode == 13) {
+            $(button).click();
+        }
+    });
+}
+
+triggerButtonOnEnter("#login", "#loginBtn");
+triggerButtonOnEnter("#signUp", "#signUpBtn");
+
+
 $('#signUpBtn').click(() => {
 
     var formData = {

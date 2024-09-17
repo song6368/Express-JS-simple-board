@@ -201,18 +201,17 @@ footer {
 }
 .pagination a {
   text-decoration: none;
-  color: #007bff;
+  color: #606060;
   padding: 5px 10px;
-  border: 1px solid #007bff;
+  border: 1px solid #606060;
   border-radius: 5px;
 }
 .pagination a.active {
-  background-color: #007bff;
+  background-color: #833434;
   color: #fff;
 }
 
 #myBoard {
-  margin-top:20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -231,7 +230,7 @@ form button:hover {
 .post {
   display: flex;
   background-color: #fafafa;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   justify-content: space-between;
   align-items: center;
@@ -248,4 +247,20 @@ form button:hover {
   color: #555;
   font-size: 11px;
   margin: 0;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white; 
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+    border: none;
 }

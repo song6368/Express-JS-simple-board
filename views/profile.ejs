@@ -26,7 +26,7 @@
               alt="프로필 이미지"
             />
           </div>
-          <div style="margin-left:50px;">
+          <div style="margin-left: 50px">
             <h2 id="user-name">사용자 이름</h2>
             <p id="user-email">이메일 주소</p>
             <button class="btn" id="edit-profile">프로필 수정</button>
@@ -60,17 +60,26 @@
         </div>
       </main>
 
-      <div class="myBoard" id="myBoard">
-
-      </div>
-
-      <footer>
+      <div style="border: 1px solid rgba(0,0,0,0.2); margin-top: 20px; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); background: linear-gradient(to bottom right, #f9f9f9, #e6e6e6);">
+        <div style="margin-bottom: 15px; font-size: 18px; font-weight: bold; color: #333;">
+          작성 게시물
+        </div>
+        <div class="myBoard" id="myBoard" style="padding: 10px; background-color: #fff; border-radius: 8px; min-height: 150px; border: 1px solid rgba(0,0,0,0.1); box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);">
+        </div>
         <ul id="pagination" class="pagination"></ul>
+      </div>
+      
+      <footer>
         <p>&copy; 2024 커뮤니티 사이트</p>
       </footer>
     </div>
 
     <script src="/javascripts/jquery-3.7.1.min.js"></script>
     <script src="/javascripts/profile.js" type="module"></script>
+    <% if (message) { %>
+      <script>
+          alert('<%= message %>');
+      </script>
+    <% } %>
   </body>
 </html>

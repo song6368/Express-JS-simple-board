@@ -19,7 +19,7 @@ router.get('/loginPage', async function (req, res, next) {
 
 router.get('/profile', async function (req, res, next) {
   if (req.session.ip && req.session.ip === req.ip) {
-    res.render("profile");
+    res.render("profile", {message:undefined});
   } else {
     res.render("main")
   }
@@ -207,6 +207,37 @@ router.post('/loadBoard', async function (req, res, next) {
     db.closeDB();
   }
 })
+
+router.post('/deletePost', async function (req, res, next) {
+  const db = new SQLite3DB();
+
+  try {
+    await db.connectDB();
+
+    const id = req.body.id
+
+    if (req.session.email && req.session.ip && req.session.ip === req.ip) {
+
+      const result = await db.delete(`delete FROM board where author = ? and id = ?`,[req.session.email, id]);
+
+      if(result.changes > 0){
+        res.render('profile', {message: 'success'});
+      } else {
+        res.render('profile', {message: 'failure'});
+      }
+    } else {
+      res.render('profile', {message: 'failure'});
+    }
+
+  } catch (err) {
+    // 에러 발생 시 에러 핸들링 미들웨어로 전달
+    console.log(err);
+    next(err);
+  } finally {
+    // 데이터베이스 연결 해제
+    db.closeDB();
+  }
+});
 
 router.post('/hasSession', function (req, res, next) {
   if (req.session.ip && req.session.ip === req.ip) {
