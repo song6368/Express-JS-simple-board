@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>커뮤니티 사이트 데모</title>
-    <link rel="stylesheet" href="/stylesheets/main.css">
-</head>
-<body>
-
-<div class="container">
-    <header>
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <% if (message) { %>
+  <script>
+    alert("<%= message %>");
+  </script>
+  <% } %>
+  <body>
+    <div class="container">
+      <header>
         <h1>커뮤니티 게시판</h1>
         <div id="pro">
-            <image id="photo"></image>
-            <div id="nick"></div>
-        </div>    
-        <nav id="nav-menu">
-        </nav>
-    </header>
-    
-    <main>
-        <div id="board-content"></div>
-        <ul id="pagination" class="pagination"></ul>
-    </main>
-    <footer>
-        <p>&copy; 2024 커뮤니티 사이트</p>
-    </footer>
-</div>
+          <image id="photo"></image>
+          <div id="nick"></div>
+        </div>
+        <nav id="nav-menu"></nav>
+      </header>
 
-<script src="/javascripts/jquery-3.7.1.min.js"></script>
-<script src="/javascripts/main.js" type="module"></script>
-</body>
+      <main>
+        <div id="board-content"></div>
+      </main>
+      <footer>
+        <ul id="pagination" class="pagination"></ul>
+        <p>&copy; 2024 커뮤니티 사이트</p>
+      </footer>
+    </div>
+
+    <script src="/javascripts/jquery-3.7.1.min.js"></script>
+    <script src="/javascripts/main.js" type="module"></script>
+  </body>
 </html>

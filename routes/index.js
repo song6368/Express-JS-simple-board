@@ -6,11 +6,11 @@ router.use(fileUpload());
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-  res.render("main");
+  res.render("main", { message: undefined });
 });
 
 router.get('/main', async function (req, res, next) {
-  res.render("main");
+  res.render("main", { message: undefined });
 });
 
 router.get('/loginPage', async function (req, res, next) {
@@ -19,9 +19,9 @@ router.get('/loginPage', async function (req, res, next) {
 
 router.get('/profile', async function (req, res, next) {
   if (req.session.ip && req.session.ip === req.ip) {
-    res.render("profile", {message:undefined});
+    res.render("profile", { message: undefined });
   } else {
-    res.render("main")
+    res.redirect('/loginPage')
   }
 });
 
@@ -29,7 +29,7 @@ router.get('/writeBoardPage', async function (req, res, next) {
   if (req.session.ip && req.session.ip === req.ip) {
     res.render("writeBoard");
   } else {
-    res.render("main")
+    res.redirect('/loginPage')
   }
 });
 
@@ -38,7 +38,7 @@ router.get('/logout', async function (req, res, next) {
     if (err) {
       return res.status(500).send('Could not log out');
     }
-    res.render("main");
+    res.redirect('/');
   });
 });
 
@@ -53,14 +53,15 @@ router.get('/boardDetail', async function (req, res, next) {
 
       const result = await db.select('select * from board where id = ?', [boardId]);
 
-      console.log(result);
+      const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
 
       res.render("boardDetail", {
         id: result.id,
         title: result.title,
         created_at: result.created_at,
         author: result.author,
-        content: result.content
+        content: result.content,
+        comments: comments
       });
 
     } catch (err) {
@@ -84,15 +85,53 @@ router.post('/boardDetail', async function (req, res, next) {
 
       const result = await db.select('select * from board where id = ?', [boardId]);
 
-      console.log(result);
+      const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
 
       res.render("boardDetail", {
         id: result.id,
         title: result.title,
         created_at: result.created_at,
         author: result.author,
-        content: result.content
+        content: result.content,
+        comments: comments
       });
+
+    } catch (err) {
+      console.log(err);
+    } finally {
+      db.closeDB();
+    }
+  } else {
+    res.render('login');
+  }
+});
+
+router.post('/addComment', async function (req, res, next) {
+  if (req.session.ip && req.session.ip === req.ip && req.session.email) {
+    const boardId = req.body.id;
+    const db = new SQLite3DB();
+
+    try {
+      await db.connectDB();
+
+      const result = await db.insert('insert into comment(board_id, email, content) values (?, ?, ?)', [boardId, req.session.email, req.body.content]);
+
+      if (result) {
+        const result2 = await db.select('select * from board where id = ?', [boardId]);
+
+        const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
+
+        res.render("boardDetail", {
+          id: result2.id,
+          title: result2.title,
+          created_at: result2.created_at,
+          author: result2.author,
+          content: result2.content,
+          comments: comments
+        });
+      } else {
+        res.render('main', { message: '댓글 등록에 실패하였습니다.' });
+      }
 
     } catch (err) {
       console.log(err);
@@ -156,7 +195,7 @@ router.post('/boardCount', async function (req, res, next) {
 
     if (req.session.email && !notForEmail) {
 
-      const result = await db.select(`SELECT count(*) as count FROM board where author = ?`,[req.session.email]);
+      const result = await db.select(`SELECT count(*) as count FROM board where author = ?`, [req.session.email]);
 
       res.send(result);
     } else {
@@ -190,12 +229,12 @@ router.post('/loadBoard', async function (req, res, next) {
 
     let result;
 
-    if(req.session.email && !notForEmail){
+    if (req.session.email && !notForEmail) {
       result = await db.selectList('SELECT id, title, author, created_at FROM board WHERE author = ? ORDER BY id desc LIMIT $1 OFFSET $2', [req.session.email, Number(cnt), Number(offset)]);
     } else {
       result = await db.selectList('SELECT id, title, author, created_at FROM board ORDER BY id desc LIMIT $1 OFFSET $2', [Number(cnt), Number(offset)]);
     }
-    
+
     res.send(result);
 
   } catch (err) {
@@ -218,15 +257,15 @@ router.post('/deletePost', async function (req, res, next) {
 
     if (req.session.email && req.session.ip && req.session.ip === req.ip) {
 
-      const result = await db.delete(`delete FROM board where author = ? and id = ?`,[req.session.email, id]);
+      const result = await db.delete(`delete FROM board where author = ? and id = ?`, [req.session.email, id]);
 
-      if(result.changes > 0){
-        res.render('profile', {message: 'success'});
+      if (result.changes > 0) {
+        res.render('profile', { message: '삭제하였습니다.' });
       } else {
-        res.render('profile', {message: 'failure'});
+        res.render('profile', { message: '삭제에 실패하였습니다.' });
       }
     } else {
-      res.render('profile', {message: 'failure'});
+      res.render('profile', { message: '삭제에 실패하였습니다.' });
     }
 
   } catch (err) {
