@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - 게시글 상세보기</title>
+    <title>
+        <%= title %> - 게시글 상세보기
+    </title>
     <link rel="stylesheet" href="/stylesheets/detail.css">
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1><%= title %></h1>
-            <p class="author">작성자: <%= author %></p>
-            <p class="date">작성일: <%= created_at %></p>
+            <h1>
+                <%= title %>
+            </h1>
+            <p class="author">작성자: <%= author %>
+            </p>
+            <p class="date">작성일: <%= created_at %>
+            </p>
         </header>
 
         <main>
@@ -23,26 +31,40 @@
             <section class="comments">
                 <h2>댓글</h2>
 
-                <% if (comments && comments.length > 0) { %>
+                <% if (comments && comments.length> 0) { %>
                     <ul class="comment-list">
-                        <% comments.forEach(comment => { %>
+                        <% comments.forEach(comment=> { %>
                             <li class="comment">
-                                <p class="comment-author"><%= comment.email %></p>
-                                <p class="comment-date">작성일: <%= comment.created_at %></p>
-                                <p class="comment-text"><%= comment.content %></p>
+                                <p class="comment-author">
+                                    <%= comment.email %>
+                                        <% if (comment.del) { %>
+                                            <form action="/delComment" method="post">
+                                                <input type="hidden" name="commentId" value="<%= comment.id %>">
+                                                <input type="hidden" name="boardId" value="<%= id %>">
+                                                <button class="delBtn" style="float:right">삭제</button>
+                                            </form>
+                                            <% } %>
+                                </p>
+                                <p class="comment-date">작성일: <%= comment.created_at %>
+                                </p>
+                                <p class="comment-text">
+                                    <%= comment.content %>
+                                </p>
                             </li>
-                        <% }) %>
+                            <% }) %>
                     </ul>
-                <% } else { %>
-                    <p>댓글이 없습니다.</p>
-                <% } %>
+                    <% } else { %>
+                        <p>댓글이 없습니다.</p>
+                        <% } %>
 
-                <!-- Comment Form -->
-                <form action="/addComment" method="post" class="comment-form">
-                    <input type="hidden" name="id" value="<%= id %>">
-                    <textarea name="content" placeholder="댓글을 작성하세요..." required></textarea>
-                    <button type="submit">댓글 추가</button>
-                </form>
+                            <!-- Comment Form -->
+                            <form action="/addComment" method="post" class="comment-form">
+                                <input type="hidden" name="id" value="<%= id %>">
+                                <div style="padding-left:-10px; padding-right:20px;">
+                                    <textarea name="content" placeholder="댓글을 작성하세요..." required></textarea>
+                                </div>
+                                <button type="submit">댓글 추가</button>
+                            </form>
             </section>
         </main>
 
@@ -50,6 +72,12 @@
             <a href="/">목록으로 돌아가기</a>
         </footer>
     </div>
+    <% if (message) { %>
+        <script>
+            alert('<%= message %>');
+        </script>
+      <% } %>
     <script src="/javascripts/boardDetail.js" type="module"></script>
 </body>
+
 </html>

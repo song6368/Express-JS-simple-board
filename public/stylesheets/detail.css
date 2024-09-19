@@ -164,3 +164,18 @@ h1 {
 .comment-form button:hover {
     background-color: #0056b3;
 }
+
+.delBtn {
+  padding: 7px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #d83b3b;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.delBtn:hover{
+    background-color: #d72424;
+}

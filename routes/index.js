@@ -55,13 +55,22 @@ router.get('/boardDetail', async function (req, res, next) {
 
       const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
 
+      for(const comment of comments){
+        if(comment.email === req.session.email){
+          comment.del = true;
+        } else {
+          comment.del = false;
+        }
+      }
+
       res.render("boardDetail", {
         id: result.id,
         title: result.title,
         created_at: result.created_at,
         author: result.author,
         content: result.content,
-        comments: comments
+        comments: comments,
+        message: undefined
       });
 
     } catch (err) {
@@ -87,13 +96,22 @@ router.post('/boardDetail', async function (req, res, next) {
 
       const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
 
+      for(const comment of comments){
+        if(comment.email === req.session.email){
+          comment.del = true;
+        } else {
+          comment.del = false;
+        }
+      }
+
       res.render("boardDetail", {
         id: result.id,
         title: result.title,
         created_at: result.created_at,
         author: result.author,
         content: result.content,
-        comments: comments
+        comments: comments,
+        message:undefined
       });
 
     } catch (err) {
@@ -121,13 +139,69 @@ router.post('/addComment', async function (req, res, next) {
 
         const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
 
+        for(const comment of comments){
+          if(comment.email === req.session.email){
+            comment.del = true;
+          } else {
+            comment.del = false;
+          }
+        }
+
         res.render("boardDetail", {
           id: result2.id,
           title: result2.title,
           created_at: result2.created_at,
           author: result2.author,
           content: result2.content,
-          comments: comments
+          comments: comments,
+          message: undefined
+        });
+      } else {
+        res.render('main', { message: '댓글 등록에 실패하였습니다.' });
+      }
+
+    } catch (err) {
+      console.log(err);
+    } finally {
+      db.closeDB();
+    }
+  } else {
+    res.render('login');
+  }
+})
+
+router.post('/delComment', async function (req, res, next) {
+  if (req.session.ip && req.session.ip === req.ip && req.session.email) {
+    const commentId = req.body.commentId;
+    const boardId = req.body.boardId;
+    const db = new SQLite3DB();
+
+    try {
+      await db.connectDB();
+
+      const result = await db.delete('delete from comment where id = ? and email = ?', [commentId, req.session.email]);
+
+      if (result) {
+        const result2 = await db.select('select * from board where id = ?', [boardId]);
+
+        const comments = await db.selectList(`select * from comment where board_id = ?`, [boardId]);
+
+        for(const comment of comments){
+          if(comment.email === req.session.email){
+            comment.del = true;
+          } else {
+            comment.del = false;
+          }
+        }
+
+        res.render("boardDetail", {
+          id: result2.id,
+          title: result2.title,
+          created_at: result2.created_at,
+          author: result2.author,
+          content: result2.content,
+          comments: comments,
+          message: '댓글을 삭제하였습니다.'
         });
       } else {
         res.render('main', { message: '댓글 등록에 실패하였습니다.' });
