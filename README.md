@@ -61,6 +61,11 @@
   ![image](https://github.com/user-attachments/assets/551cdfc1-7a3b-4b37-9751-df82e261f911)
   ![image](https://github.com/user-attachments/assets/5e86318c-583e-40c2-8595-4333d414e541)
 
+- 댓글 삭제 기능 추가
+  ![image](https://github.com/user-attachments/assets/44cd6321-4e81-47a8-9838-e3a55646f02e)
+  ![image](https://github.com/user-attachments/assets/e43a0fcd-6607-48c1-af8b-4d03ccbc2675)
+
+
 
 ## 설치 및 실행
 
