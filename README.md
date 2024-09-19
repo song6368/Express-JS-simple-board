@@ -49,21 +49,21 @@
 
 - 게시글 상세페이지
   <br/>
-  ![image](https://github.com/user-attachments/assets/b67d8a10-3484-49be-a73c-9696a5a9f589)
+  ![boardDetail](https://github.com/user-attachments/assets/b67d8a10-3484-49be-a73c-9696a5a9f589)
   
 - 페이지네이션 추가 및 UI 변경
   <br/>
-  ![image](https://github.com/user-attachments/assets/b3893c97-580f-46af-baa9-0d7c05e33c62)
-  ![image](https://github.com/user-attachments/assets/ec4a0e3d-3c36-470a-bf89-70a097c4c5e8)
+  ![pagination1](https://github.com/user-attachments/assets/b3893c97-580f-46af-baa9-0d7c05e33c62)
+  ![pagination2](https://github.com/user-attachments/assets/ec4a0e3d-3c36-470a-bf89-70a097c4c5e8)
 
 - 댓글 기능 추가
   <br/>
-  ![image](https://github.com/user-attachments/assets/551cdfc1-7a3b-4b37-9751-df82e261f911)
-  ![image](https://github.com/user-attachments/assets/5e86318c-583e-40c2-8595-4333d414e541)
+  ![comment1](https://github.com/user-attachments/assets/551cdfc1-7a3b-4b37-9751-df82e261f911)
+  ![comment2](https://github.com/user-attachments/assets/5e86318c-583e-40c2-8595-4333d414e541)
 
 - 댓글 삭제 기능 추가
-  ![image](https://github.com/user-attachments/assets/44cd6321-4e81-47a8-9838-e3a55646f02e)
-  ![image](https://github.com/user-attachments/assets/e43a0fcd-6607-48c1-af8b-4d03ccbc2675)
+  ![commentDel1](https://github.com/user-attachments/assets/44cd6321-4e81-47a8-9838-e3a55646f02e)
+  ![commentDel2](https://github.com/user-attachments/assets/e43a0fcd-6607-48c1-af8b-4d03ccbc2675)
 
 
 
