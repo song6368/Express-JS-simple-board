@@ -1,8 +1,8 @@
-## 프로젝트 개요
+## 📋 프로젝트 개요
 
-이 프로젝트는 Express.js를 사용하여 간단한 게시판을 구현하는 예제입니다. 주요 기능으로는 데이터베이스 스키마 및 테이블 생성, 로그인 기능, 세션 관리, 프로필 페이지, 게시글 작성 페이지 등이 포함되어 있습니다.
+이 프로젝트는 **Express.js**를 사용하여 간단한 게시판을 구현하는 예제입니다. 주요 기능으로는 데이터베이스 스키마 및 테이블 생성, 로그인 기능, 세션 관리, 프로필 페이지, 게시글 작성 페이지 등이 포함되어 있습니다.
 
-## 기능
+## 🎉 기능
 
 ### 1. 데이터베이스
 
@@ -62,34 +62,12 @@
   <img src="https://github.com/user-attachments/assets/44cd6321-4e81-47a8-9838-e3a55646f02e" alt="Comment Delete 1" width="300"/>
   <img src="https://github.com/user-attachments/assets/e43a0fcd-6607-48c1-af8b-4d03ccbc2675" alt="Comment Delete 2" width="300"/>
 
-
-
-## 설치 및 실행
+## 🚀 설치 및 실행
 
 1. **레포지토리 클론:**
 
    ```bash
    git clone https://github.com/song6368/Express-JS-simple-board
-   ```
-
-2. **의존성 설치:**
-
-   ```bash
    cd Express-JS-simple-board
    npm install
-   ```
-
-3. **서버 실행:**
-
-   ```bash
    npm start
-   ```
-
-4. **웹 브라우저에서 애플리케이션 열기:**
-
-   ```
-   http://localhost:3000
-   ```
-
-
----
